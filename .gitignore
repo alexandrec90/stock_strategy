@@ -36,3 +36,4 @@ ENV/
 # Project specific
 *.csv
 !symbols.csv  # Keep this one in version control
+!data/symbols.csv  # Keep the data folder's symbols file in version control
