@@ -1,0 +1,15 @@
+# Stock Strategy Configuration
+
+data:
+  dir: data
+  symbols_file: symbols.csv
+  stock_prices_file: stock_prices.csv
+  metrics_file: metrics.csv
+
+fetch:
+  lookback_days: 500
+
+metrics:
+  window_short: 20
+  window_long: 200
+  predict_days: 200
