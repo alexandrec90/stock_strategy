@@ -4,3 +4,6 @@ numpy
 scipy
 yfinance
 pyyaml
+
+# Development dependencies
+pytest
