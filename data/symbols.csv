@@ -1,8 +1,8 @@
-Symbol
-AAPL
-GOOG
-MSFT
-NVDA
-TSLA
-META
-AMZN
+Symbol,Name
+AAPL,Apple Inc.
+GOOG,Alphabet Inc.
+MSFT,Microsoft Corporation
+NVDA,NVIDIA Corporation
+TSLA,Tesla Inc.
+META,Meta Platforms Inc.
+AMZN,Amazon.com Inc.
