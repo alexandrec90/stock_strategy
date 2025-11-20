@@ -1,21 +1,31 @@
-[tool.poetry]
+[project]
 name = "stock_strategy"
 version = "0.1.0"
 description = "Stock analysis tool for computing technical metrics and predictions"
-authors = ["alexandrec90"]
-license = "MIT"
+authors = [{name = "Alexandre Charbonneau", email = "alexandrec89@gmail.com"}]
+license = {text = "MIT"}
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "yfinance>=0.2.0",
+    "scipy>=1.10.0",
+    "pyyaml>=6.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-numpy = "^1.24.0"
-pandas = "^2.0.0"
-yfinance = "^0.2.0"
-scipy = "^1.10.0"
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/alexandrec90/stock_strategy"
+Repository = "https://github.com/alexandrec90/stock_strategy.git"
+
+[project.scripts]
+stock-strategy = "src.cli:main"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.urls]
-homepage = "https://github.com/alexandrec90/stock_strategy"
-repository = "https://github.com/alexandrec90/stock_strategy.git"
+requires = ["setuptools>=65.0.0", "wheel"]
+build-backend = "setuptools.build_meta"

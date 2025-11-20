@@ -2,11 +2,41 @@ from utils import load_stock_data, save_csv, normalize_window, log_linear_predic
 from config import WINDOW_SHORT, WINDOW_LONG, PREDICT_DAYS, STOCK_PRICES_CSV, METRICS_CSV
 import pandas as pd
 import numpy as np
+import logging
+from pathlib import Path
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 def compute_metrics():
-    df = load_stock_data(STOCK_PRICES_CSV)
+    logger.info("Loading stock price data...")
+    try:
+        df = load_stock_data(STOCK_PRICES_CSV)
+    except FileNotFoundError:
+        logger.error(f"Stock prices file not found. Run 'fetch' command first.")
+        raise
+    
+    if df.empty:
+        logger.error("Stock prices file is empty")
+        raise ValueError("No data to process. Run fetch command first.")
+    
+    required_cols = ['Date', 'Symbol', 'Close']
+    missing_cols = [col for col in required_cols if col not in df.columns]
+    if missing_cols:
+        raise ValueError(f"Missing required columns: {missing_cols}")
+    
+    logger.info(f"Processing {len(df)} records for {df['Symbol'].nunique()} symbols")
     results = []
+    symbols_processed = 0
+    total_symbols = df['Symbol'].nunique()
+    
     for symbol, group in df.groupby('Symbol'):
+        symbols_processed += 1
+        logger.info(f"Computing metrics for {symbol} ({symbols_processed}/{total_symbols})...")
         group = group.sort_values('Date').reset_index(drop=True)
         prices = group['Close'].values
         n = len(prices)
@@ -62,7 +92,8 @@ def compute_metrics():
             results.append(row)
     res_df = pd.DataFrame(results)
     save_csv(res_df, METRICS_CSV)
-    print(f"Saved metrics to data/{METRICS_CSV} with {len(res_df)} rows")
+    logger.info(f"Saved metrics to data/{METRICS_CSV} with {len(res_df)} rows")
+    logger.info("Metrics computation complete!")
 
 if __name__ == '__main__':
     compute_metrics()

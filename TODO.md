@@ -4,15 +4,15 @@ This file contains the project backlog and next actionable steps.
 
 - [x] Create `TODO.md` file
 - [x] Populate `TODO.md` with initial tasks (development, tests, CI, docs)
-
-- [ ] Fetch data from Yahoo Finance
+- [x] Fetch data from Yahoo Finance
 	- Implement data ingestion (e.g. `yfinance` or `pandas-datareader`).
 	- Save raw OHLCV history to `data/` for reproducibility.
-
-- [ ] Calculate basic metrics on prices
+- [x] Calculate basic metrics on prices
 	- Compute 20-day and 200-day growth rates.
 	- Compute 20-day and 200-day range score (volatility/normalized range).
-	- Add implementations in `price_normalized.py` or `metrics.py`.
+	- Add implementations in `metrics.py`.
+- [x] Create unified CLI interface
+	- Add `cli.py` for running fetch and metrics commands.
 
 - [ ] Find investing models for those metrics
 	- Research rule-based signals and simple ML models (logistic regression, random forest).
@@ -34,8 +34,8 @@ This file contains the project backlog and next actionable steps.
 	- Add order placement, position sizing, and safety checks.
 	- Run in paper environment and log results.
 
-- [ ] Add basic unit tests
-	- Tests for `fetch_stocks.py` and `metrics.py`.
+- [x] Add basic unit tests
+	- Tests for utility functions in `test_utils.py`.
 
 - [ ] Add CI workflow
 	- Create GitHub Actions to run tests and lint on push.
