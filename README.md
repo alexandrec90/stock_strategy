@@ -24,19 +24,19 @@ stock_strategy/
 ├── src/
 │   ├── __init__.py       # Package initialization
 │   ├── cli.py            # Command-line interface
-│   ├── config.py         # Configuration loader
-│   ├── fetch_stocks.py   # Yahoo Finance data fetcher
-│   ├── metrics.py        # Technical indicators calculator
-│   └── utils.py          # Shared utility functions
 │   ├── core/             # Core configuration and shared utilities
 │   │   └── config.py     # Centralized config values (use `from src.core.config import ...`)
-│   ├── data/             # Data ingestion helpers (use `from src.data import fetch_stocks`)
-│   │   └── fetch_stocks.py
-│   └── analysis/         # Analysis and metrics implementations (use `from src.analysis import compute_metrics`)
-│       └── metrics.py
+│   ├── data/             # Data ingestion helpers
+│   │   └── fetch_stocks.py # Yahoo Finance data fetcher (use `from src.data.fetch_stocks import main`)
+│   ├── analysis/         # Analysis and metrics implementations
+│   │   ├── metrics.py    # Technical indicators calculator (use `from src.analysis.metrics import compute_metrics`)
+│   │   └── utils.py      # Shared utility functions (use `from src.analysis.utils import ...`)
+│   └── trading/          # Trading integrations
+│       └── ibkr.py       # Interactive Brokers integration (use `from src.trading.ibkr import demo_trade`)
 ├── tests/                # Unit tests
 │   ├── __init__.py
-│   └── test_utils.py
+│   ├── test_utils.py
+│   └── test_ibkr.py
 ├── .gitignore
 ├── pyproject.toml
 ├── requirements.txt
@@ -106,27 +106,16 @@ This project includes a safe trading demo that can be used to test order placeme
 - By default the demo runs in dry-run mode and will not connect to Interactive Brokers nor place orders:
 
   ```bash
-  python -m src.cli trade-demo
+  python src/cli.py trade-demo
   ```
 
 - To attempt a live order you must run TWS or IB Gateway in paper mode and explicitly request a live run. For safety the CLI requires both `--live` and `--confirm` to send a live order:
 
   ```bash
-  python -m src.cli trade-demo --symbol AAPL --qty 1 --live --confirm
+  python src/cli.py trade-demo --symbol AAPL --qty 1 --live --confirm
   ```
 
 Ensure you understand the risks before sending live orders. Use `--live` only when your IB environment is configured and you intend to trade in your paper account.
-
-
-### Individual Scripts
-
-```bash
-# Fetch historical data
-python src/fetch_stocks.py
-
-# Generate technical metrics
-python src/metrics.py
-```
 
 ### Managing Symbols
 
