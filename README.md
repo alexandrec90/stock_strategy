@@ -28,6 +28,12 @@ stock_strategy/
 │   ├── fetch_stocks.py   # Yahoo Finance data fetcher
 │   ├── metrics.py        # Technical indicators calculator
 │   └── utils.py          # Shared utility functions
+│   ├── core/             # Core configuration and shared utilities
+│   │   └── config.py     # Centralized config values (use `from src.core.config import ...`)
+│   ├── data/             # Data ingestion helpers (use `from src.data import fetch_stocks`)
+│   │   └── fetch_stocks.py
+│   └── analysis/         # Analysis and metrics implementations (use `from src.analysis import compute_metrics`)
+│       └── metrics.py
 ├── tests/                # Unit tests
 │   ├── __init__.py
 │   └── test_utils.py
@@ -92,6 +98,25 @@ python src/cli.py metrics
 # Run full pipeline (fetch + metrics)
 python src/cli.py all
 ```
+
+### Trading demo (IBKR)
+
+This project includes a safe trading demo that can be used to test order placement logic.
+
+- By default the demo runs in dry-run mode and will not connect to Interactive Brokers nor place orders:
+
+  ```bash
+  python -m src.cli trade-demo
+  ```
+
+- To attempt a live order you must run TWS or IB Gateway in paper mode and explicitly request a live run. For safety the CLI requires both `--live` and `--confirm` to send a live order:
+
+  ```bash
+  python -m src.cli trade-demo --symbol AAPL --qty 1 --live --confirm
+  ```
+
+Ensure you understand the risks before sending live orders. Use `--live` only when your IB environment is configured and you intend to trade in your paper account.
+
 
 ### Individual Scripts
 

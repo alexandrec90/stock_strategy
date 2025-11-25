@@ -1,23 +1,11 @@
-import yaml
-import os
+"""DEPRECATED top-level shim.
 
-def load_config(config_path='config.yaml'):
-    """Load configuration from YAML file."""
-    with open(config_path, 'r') as f:
-        return yaml.safe_load(f)
+This project has moved configuration into `src.core.config`. The top-level
+`src.config` shim has been removed; importing it will raise an informative
+ImportError to encourage direct usage of the new module.
+"""
 
-_config = load_config()
-
-# Data paths
-DATA_DIR = _config['data']['dir']
-SYMBOLS_CSV = os.path.join(DATA_DIR, _config['data']['symbols_file'])
-STOCK_PRICES_CSV = _config['data']['stock_prices_file']
-METRICS_CSV = _config['data']['metrics_file']
-
-# Fetch settings
-LOOKBACK_DAYS = _config['fetch']['lookback_days']
-
-# Metrics settings
-WINDOW_SHORT = _config['metrics']['window_short']
-WINDOW_LONG = _config['metrics']['window_long']
-PREDICT_DAYS = _config['metrics']['predict_days']
+raise ImportError(
+    "src.config has been removed. Import from 'src.core.config' instead. "
+    "Example: from src.core.config import DATA_DIR"
+)

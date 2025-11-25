@@ -7,3 +7,4 @@ pyyaml
 
 # Development dependencies
 pytest
+ib_insync

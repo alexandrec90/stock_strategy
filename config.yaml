@@ -13,3 +13,9 @@ metrics:
   window_short: 20
   window_long: 200
   predict_days: 200
+
+ibkr:
+  host: 127.0.0.1
+  port: 7497
+  client_id: 101
+  account: PAPER
