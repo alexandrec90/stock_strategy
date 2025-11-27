@@ -1,13 +1,15 @@
 """Tests for utility functions."""
-import pytest
-import numpy as np
+
 import sys
 from pathlib import Path
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
+import numpy as np
+import pytest
 
-from src.analysis.utils import normalize_window, log_linear_predict, exp_func
+# Add src to path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+
+from src.analysis.utils import exp_func, log_linear_predict, normalize_window
 
 
 def test_normalize_window_normal_range():

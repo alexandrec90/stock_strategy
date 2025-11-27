@@ -1,7 +1,5 @@
 import sys
 import types
-import builtins
-import pytest
 
 
 def make_fake_ib_insync():
@@ -57,21 +55,21 @@ def test_demo_dry_run(capsys):
     # Import the demo function
     from src.trading.ibkr import demo_trade
 
-    res = demo_trade('AAPL', 1, dry_run=True)
+    res = demo_trade("AAPL", 1, dry_run=True)
     captured = capsys.readouterr()
     assert res is None
-    assert 'DRY-RUN' in captured.out
+    assert "DRY-RUN" in captured.out
 
 
 def test_demo_live_calls_ib(monkeypatch):
     fake = make_fake_ib_insync()
-    monkeypatch.setitem(sys.modules, 'ib_insync', fake)
+    monkeypatch.setitem(sys.modules, "ib_insync", fake)
 
     # Now import the module under test (it will import ib_insync from sys.modules)
     from src.trading import ibkr
 
     # Call demo_trade with dry_run=False which should use the fake IB
-    trade = ibkr.demo_trade('AAPL', 2, dry_run=False, order_type='market')
+    trade = ibkr.demo_trade("AAPL", 2, dry_run=False, order_type="market")
     # Expect a trade-like dict from fake placeOrder
     assert isinstance(trade, dict)
-    assert trade['order'].quantity == 2
+    assert trade["order"].quantity == 2
